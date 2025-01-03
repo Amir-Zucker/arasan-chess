@@ -5,7 +5,7 @@
 #include "globals.h"
 #include "search.h"
 #include "legal.h"
-#include "syzygy.h"
+//#include "syzygy.h"
 #include "trace.h"
 
 #include <cstddef>
