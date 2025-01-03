@@ -4,9 +4,9 @@
 #include "hash.h"
 #include "scoring.h"
 #include "search.h"
-#ifdef SYZYGY_TBS
-#include "syzygy.h"
-#endif
+//#ifdef SYZYGY_TBS
+//#include "syzygy.h"
+//#endif
 #include "bitbase.cpp"
 
 #ifdef _MAC
@@ -28,12 +28,12 @@ extern "C" {
 #include <filesystem>
 #endif
 
-#ifdef SYZYGY_TBS
-static bool tb_init = false;
-
-bool globals::tb_init_done() { return tb_init; }
-int globals::EGTBMenCount = 0;
-#endif
+//#ifdef SYZYGY_TBS
+//static bool tb_init = false;
+//
+//bool globals::tb_init_done() { return tb_init; }
+//int globals::EGTBMenCount = 0;
+//#endif
 
 #ifdef _WIN32
 static constexpr char PATH_CHAR = '\\';
@@ -48,9 +48,9 @@ Options globals::options;
 
 std::mutex globals::input_lock;
 
-#ifdef SYZYGY_TBS
-std::mutex globals::syzygy_lock;
-#endif
+//#ifdef SYZYGY_TBS
+//std::mutex globals::syzygy_lock;
+//#endif
 bool globals::polling_terminated;
 std::string globals::debugPrefix;
 nnue::Network globals::network;
@@ -263,30 +263,30 @@ void globals::initGameFile() {
 }
 
 void globals::delayedInit(bool verbose) {
-#ifdef SYZYGY_TBS
-    if (options.search.use_tablebases && !globals::tb_init_done()) {
-        EGTBMenCount = 0;
-        std::string path;
-        if (options.search.syzygy_path == "") {
-            options.search.syzygy_path = derivePath("syzygy");
-        }
-        path = options.search.syzygy_path;
-        EGTBMenCount = SyzygyTb::initTB(options.search.syzygy_path);
-        tb_init = true;
-        if (verbose) {
-            if (EGTBMenCount) {
-                std::stringstream msg;
-                msg << debugPrefix << "found " << EGTBMenCount
-                    << "-man Syzygy tablebases in directory " << path << std::endl;
-                std::cout << msg.str();
-            } else {
-                std::cout << debugPrefix
-                          << "warning: no Syzygy tablebases found, path may be missing or invalid"
-                          << std::endl;
-            }
-        }
-    }
-#endif
+//#ifdef SYZYGY_TBS
+//    if (options.search.use_tablebases && !globals::tb_init_done()) {
+//        EGTBMenCount = 0;
+//        std::string path;
+//        if (options.search.syzygy_path == "") {
+//            options.search.syzygy_path = derivePath("syzygy");
+//        }
+//        path = options.search.syzygy_path;
+//        EGTBMenCount = SyzygyTb::initTB(options.search.syzygy_path);
+//        tb_init = true;
+//        if (verbose) {
+//            if (EGTBMenCount) {
+//                std::stringstream msg;
+//                msg << debugPrefix << "found " << EGTBMenCount
+//                    << "-man Syzygy tablebases in directory " << path << std::endl;
+//                std::cout << msg.str();
+//            } else {
+//                std::cout << debugPrefix
+//                          << "warning: no Syzygy tablebases found, path may be missing or invalid"
+//                          << std::endl;
+//            }
+//        }
+//    }
+//#endif
     if (!nnueInitDone) {
         if (options.search.nnueFile.size()) {
             const std::string &nnuePath = options.search.nnueFile;
@@ -315,11 +315,11 @@ void globals::delayedInit(bool verbose) {
 }
 
 void globals::unloadTb() {
-#ifdef SYZYGY_TBS
-    if (tb_init_done()) {
-        // Note: Syzygy code will free any existing memory if
-        // initialized more than once. So no need to do anything here.
-        tb_init = false;
-    }
-#endif
+//#ifdef SYZYGY_TBS
+//    if (tb_init_done()) {
+//        // Note: Syzygy code will free any existing memory if
+//        // initialized more than once. So no need to do anything here.
+//        tb_init = false;
+//    }
+//#endif
 }
