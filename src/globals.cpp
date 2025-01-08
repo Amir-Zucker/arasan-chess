@@ -130,7 +130,8 @@ std::string globals::derivePath(const std::string &base, const std::string &file
 }
 
 bool globals::initGlobals() {
-#ifndef _WIN32
+    //Does not work on iOS/VisionOS/macOS
+#if (!defined(_WIN32) && !defined(__APPLE__))
     struct rlimit rl;
     const rlim_t STACK_MAX = static_cast<rlim_t>(LINUX_STACK_SIZE);
     auto result = getrlimit(RLIMIT_STACK, &rl);
@@ -143,7 +144,7 @@ bool globals::initGlobals() {
             if (result)
             {
                 std::cerr << "failed to increase stack size" << std::endl;
-                exit(-1);
+                return false;
             }
         }
     }
@@ -299,7 +300,8 @@ void globals::delayedInit(bool verbose) {
         if (!nnueInitDone) {
             // This is now a fatal error
             std::cerr << "failed to load network, terminating." << std::endl;
-            exit(-1);
+            globals::cleanupGlobals();
+            return;
         }
     }
     // also initialize the book here
