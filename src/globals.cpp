@@ -130,6 +130,11 @@ std::string globals::derivePath(const std::string &base, const std::string &file
     if (pos == std::string::npos) {
         return fileName;
     } else {
+#if defined(__APPLE__)
+    if (getenv("XCTestBundlePath") == nullptr) {
+        return result + "/" + fileName;
+    }
+#endif
         return result.substr(0, pos + 1) + fileName;
     }
 }
