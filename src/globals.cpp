@@ -296,7 +296,9 @@ void globals::delayedInit(bool verbose) {
             nnueInitDone = loadNetwork(nnuePath, verbose);
             
             if (!nnueInitDone) {
-                nnueInitDone = loadNetwork(std::getenv("HOME") + PATH_CHAR + nnuePath, verbose);
+                std::string home = std::getenv("HOME");
+                const std::string nnueFullPath = home + "/" + nnueFile;
+                nnueInitDone = loadNetwork(nnueFullPath, verbose);
             }
         } else if (verbose) {
             std::cout << debugPrefix << "error: no NNUE file path was set, network not loaded"
