@@ -26,6 +26,9 @@ Arasan is licensed under the MIT License. See the LICENSE file. Note: this inclu
 
 ## Program variants
 
+### This is a variant intended to run on mobile apple devices.
+for the original arasan chess engine, see: [Arasan](https://github.com/jdart1/arasan-chess) 
+
 Several different binaries for Arasan can be built. The default
 executable (arasanx-32 for 32-bit operating systems, or arasanx-64 for
 64-bit ones) is designed to be runnable on most systems. Default x86 or x86_64 builds
@@ -93,8 +96,8 @@ The engine would look for this file in the program's directory,
 and if present, Arasan will also read a file from the user's home
 directory:
 
-- on Windows, from arasan.rc
-- on MacOS or Linux, from .arasan.rc
+- on Windows or MacOS, from arasan.rc
+- on Linux, from .arasan.rc
 
 The contents of these files will overwrite the one that is in the
 program directory.

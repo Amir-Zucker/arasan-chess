@@ -234,7 +234,7 @@ bool globals::initOptions(bool autoLoadRC, const char *rcPath,
     // Also attempt to read .rc from the user's home directory.
     // If present, this overrides the file at the install location.
     if (autoLoadRC && userDir.size()) {
-#ifdef _WIN32
+#if defined(_WIN32) || defined(__APPLE__)
         std::string userRcFile(RC_FILE_NAME);
 #else
         std::string userRcFile(".");
