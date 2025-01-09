@@ -109,6 +109,11 @@ static void getExecutablePath(std::string &path) {
     result[0] = '\0';
     ssize_t count = readlink("/proc/self/exe", result, PATH_MAX);
     path = std::string(result, (count > 0) ? count : 0);
+#if defined(__APPLE__)
+    if (path.empty() && getenv("XCTestBundlePath") == nullptr) {
+        path = std::getenv("HOME");
+    }
+#endif
 #endif
 }
 
