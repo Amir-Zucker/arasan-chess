@@ -290,9 +290,14 @@ void globals::delayedInit(bool verbose) {
 //#endif
     if (!nnueInitDone) {
         if (options.search.nnueFile.size()) {
-            const std::string &nnuePath = options.search.nnueFile;
-            nnueInitDone =
-                loadNetwork(absolutePath(nnuePath) ? nnuePath.c_str() : derivePath(nnuePath), verbose);
+            const std::string &nnueFile = options.search.nnueFile;
+            const std::string &nnuePath = absolutePath(nnueFile) ? nnueFile.c_str() : derivePath(nnueFile);
+            
+            nnueInitDone = loadNetwork(nnuePath, verbose);
+            
+            if (!nnueInitDone) {
+                nnueInitDone = loadNetwork(std::getenv("HOME") + PATH_CHAR + nnuePath, verbose);
+            }
         } else if (verbose) {
             std::cout << debugPrefix << "error: no NNUE file path was set, network not loaded"
                       << std::endl;
