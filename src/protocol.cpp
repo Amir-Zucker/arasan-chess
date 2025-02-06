@@ -1560,11 +1560,11 @@ void Protocol::processWinboardOptions(const std::string &args) {
         if (!globals::options.games.store_games && globals::game_file.is_open()) {
             globals::game_file.close();
         }
-        globals::initGameFile();
+        globals::initGameFile(true);
     } else if (name == "Game pathname") {
         Options::setOption<std::string>(value,globals::options.games.game_pathname);
         if (globals::game_file.is_open()) globals::game_file.close();
-        globals::initGameFile();
+        globals::initGameFile(true);
     } else if (name == "Can resign") {
         Options::setOption<bool>(value,globals::options.search.can_resign);
     } else if (name == "Resign threshold") {
