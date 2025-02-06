@@ -60,7 +60,7 @@ extern bool loadNetwork(const std::string &filename, bool verbose);
 
 extern bool initGlobals();
 
-extern void initGameFile();
+extern void initGameFile(bool verbose);
 
 extern void CDECL cleanupGlobals(void);
 
@@ -73,7 +73,7 @@ extern bool initOptions(bool autoLoadRC = true, const char *rcPath = nullptr, bo
 // Perform actions that need to be done before a game but after
 // program startup (chiefly ones that depend on runtime options
 // being set).
-extern void delayedInit(bool verbose = true);
+extern void delayedInit(bool verbose = false);
 
 // Attempt to unload the tablebases (if in use),
 extern void unloadTb();

@@ -294,7 +294,7 @@ bool globals::initOptions(bool autoLoadRC, const char *rcPath,
     return true;
 }
 
-void globals::initGameFile() {
+void globals::initGameFile(bool verbose) {
     if (globals::options.games.store_games && !game_file.is_open()) {
         std::string pathname;
         if (globals::options.games.game_pathname == "") {
@@ -303,7 +303,7 @@ void globals::initGameFile() {
             pathname = globals::options.games.game_pathname;
         }
         game_file.open(pathname.c_str(), std::ios::out | std::ios::app);
-        if (!game_file.good()) {
+        if (!game_file.good() && verbose) {
             std::cerr << "# warning: cannot open game file. Games will not be saved." << std::endl;
         }
     }
@@ -366,7 +366,7 @@ void globals::delayedInit(bool verbose) {
                       << std::endl;
         }
     }
-    initGameFile();
+    initGameFile(verbose);
 }
 
 void globals::unloadTb() {
